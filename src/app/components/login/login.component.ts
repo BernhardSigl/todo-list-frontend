@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -10,8 +11,23 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  email: string = '';
+  username: string = '';
   password: string = '';
 
-  login() {}
+  constructor(private as: AuthService, private router: Router) {}
+
+  async login() {
+    try {
+      let resp: any = await this.as.loginWithUsernameAndPassword(
+        this.username,
+        this.password
+      );
+      localStorage.setItem('token', resp['token']);
+      this.router.navigateByUrl('/todos');
+      console.log('resp: ', resp);
+    } catch (e) {
+      alert('Login fehlgeschlagen')
+      console.error('Error: ', e);
+    }
+  }
 }
