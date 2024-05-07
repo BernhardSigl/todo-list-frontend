@@ -1,5 +1,19 @@
 <h1>{{ error }}</h1>
-<div *ngFor="let todo of todos">
-    <input type="checkbox" [checked]="todo.checked">
-    {{ todo.title }}
+
+<input type="text" placeholder="Todo hinzufügen" [(ngModel)]="addTodoInput" />
+<button (click)="send()" method="post">Senden</button>
+<br /><br />
+
+@for (todo of todos; track todo; let idx = $index) {
+<div class="todo-box">
+  <input type="checkbox" [checked]="todo.checked" class="checkbox" />
+  <input *ngIf="editMode" [(ngModel)]="todo.title">
+  <span class="todo" *ngIf="!editMode">{{ todo.title }} [{{ todo.created_at }}]</span>
+  <div class="delete" (click)="delete(idx)">(X)</div>
+  <div class="edit" (click)="toggleEditMode()">(E)</div>
+  <button *ngIf="editMode" (click)="update(idx)">save</button>
 </div>
+
+} @empty {
+<span>Leer...</span>
+}

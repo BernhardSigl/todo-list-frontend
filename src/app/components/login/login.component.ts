@@ -23,6 +23,7 @@ export class LoginComponent {
         this.password
       );
       localStorage.setItem('token', resp['token']);
+      localStorage.setItem('author', resp['user_id']);
       this.router.navigateByUrl('/todos');
       console.log('resp: ', resp);
     } catch (e) {

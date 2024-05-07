@@ -1,0 +1,19 @@
+.todo-box {
+  display: flex;
+  margin-bottom: 8px;
+  .checkbox {
+    cursor: pointer;
+  }
+  .todo {
+    cursor: default;
+  }
+  .edit,
+  .delete {
+    font-weight: bold;
+    margin: 0 8px;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
